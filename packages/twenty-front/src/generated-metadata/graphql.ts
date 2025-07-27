@@ -1184,6 +1184,7 @@ export type Mutation = {
   unsyncRemoteTable: RemoteTable;
   updateApiKey?: Maybe<ApiKey>;
   updateDatabaseConfigVariable: Scalars['Boolean'];
+  updateDraftWorkflowVersionPositions: Scalars['Boolean'];
   updateLabPublicFeatureFlag: FeatureFlagDto;
   updateOneAgent: Agent;
   updateOneField: Field;
@@ -1596,6 +1597,11 @@ export type MutationUpdateApiKeyArgs = {
 export type MutationUpdateDatabaseConfigVariableArgs = {
   key: Scalars['String'];
   value: Scalars['JSON'];
+};
+
+
+export type MutationUpdateDraftWorkflowVersionPositionsArgs = {
+  input: UpdateDraftWorkflowVersionPositionsInput;
 };
 
 
@@ -2640,6 +2646,13 @@ export type UpdateApiKeyDto = {
   revokedAt?: InputMaybe<Scalars['String']>;
 };
 
+export type UpdateDraftWorkflowVersionPositionsInput = {
+  /** Workflow version updated positions */
+  positions: Array<WorkflowStepPositionUpdateInput>;
+  /** Workflow version ID */
+  workflowVersionId: Scalars['String'];
+};
+
 export type UpdateFieldInput = {
   defaultValue?: InputMaybe<Scalars['JSON']>;
   description?: InputMaybe<Scalars['String']>;
@@ -2932,6 +2945,17 @@ export type WorkflowStepPosition = {
   __typename?: 'WorkflowStepPosition';
   x: Scalars['Float'];
   y: Scalars['Float'];
+};
+
+export type WorkflowStepPositionInput = {
+  x: Scalars['Float'];
+  y: Scalars['Float'];
+};
+
+export type WorkflowStepPositionUpdateInput = {
+  /** Step or trigger ID */
+  id: Scalars['String'];
+  position: WorkflowStepPositionInput;
 };
 
 export type WorkflowVersion = {
@@ -3978,6 +4002,13 @@ export type SubmitFormStepMutationVariables = Exact<{
 
 
 export type SubmitFormStepMutation = { __typename?: 'Mutation', submitFormStep: boolean };
+
+export type UpdateDraftWorkflowVersionPositionsMutationVariables = Exact<{
+  input: UpdateDraftWorkflowVersionPositionsInput;
+}>;
+
+
+export type UpdateDraftWorkflowVersionPositionsMutation = { __typename?: 'Mutation', updateDraftWorkflowVersionPositions: boolean };
 
 export type DeleteWorkspaceInvitationMutationVariables = Exact<{
   appTokenId: Scalars['String'];
@@ -9050,6 +9081,37 @@ export function useSubmitFormStepMutation(baseOptions?: Apollo.MutationHookOptio
 export type SubmitFormStepMutationHookResult = ReturnType<typeof useSubmitFormStepMutation>;
 export type SubmitFormStepMutationResult = Apollo.MutationResult<SubmitFormStepMutation>;
 export type SubmitFormStepMutationOptions = Apollo.BaseMutationOptions<SubmitFormStepMutation, SubmitFormStepMutationVariables>;
+export const UpdateDraftWorkflowVersionPositionsDocument = gql`
+    mutation UpdateDraftWorkflowVersionPositions($input: UpdateDraftWorkflowVersionPositionsInput!) {
+  updateDraftWorkflowVersionPositions(input: $input)
+}
+    `;
+export type UpdateDraftWorkflowVersionPositionsMutationFn = Apollo.MutationFunction<UpdateDraftWorkflowVersionPositionsMutation, UpdateDraftWorkflowVersionPositionsMutationVariables>;
+
+/**
+ * __useUpdateDraftWorkflowVersionPositionsMutation__
+ *
+ * To run a mutation, you first call `useUpdateDraftWorkflowVersionPositionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDraftWorkflowVersionPositionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDraftWorkflowVersionPositionsMutation, { data, loading, error }] = useUpdateDraftWorkflowVersionPositionsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateDraftWorkflowVersionPositionsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDraftWorkflowVersionPositionsMutation, UpdateDraftWorkflowVersionPositionsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateDraftWorkflowVersionPositionsMutation, UpdateDraftWorkflowVersionPositionsMutationVariables>(UpdateDraftWorkflowVersionPositionsDocument, options);
+      }
+export type UpdateDraftWorkflowVersionPositionsMutationHookResult = ReturnType<typeof useUpdateDraftWorkflowVersionPositionsMutation>;
+export type UpdateDraftWorkflowVersionPositionsMutationResult = Apollo.MutationResult<UpdateDraftWorkflowVersionPositionsMutation>;
+export type UpdateDraftWorkflowVersionPositionsMutationOptions = Apollo.BaseMutationOptions<UpdateDraftWorkflowVersionPositionsMutation, UpdateDraftWorkflowVersionPositionsMutationVariables>;
 export const DeleteWorkspaceInvitationDocument = gql`
     mutation DeleteWorkspaceInvitation($appTokenId: String!) {
   deleteWorkspaceInvitation(appTokenId: $appTokenId)
