@@ -217,6 +217,7 @@ export const WorkflowDiagramCanvasBase = ({
     setWorkflowInsertStepIds({
       parentStepId: undefined,
       nextStepId: undefined,
+      position: undefined,
     });
   });
 
