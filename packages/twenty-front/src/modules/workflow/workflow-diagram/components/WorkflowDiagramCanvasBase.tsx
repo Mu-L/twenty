@@ -438,6 +438,7 @@ export const WorkflowDiagramCanvasBase = ({
         onConnect={onConnect}
         onNodeDragStop={onNodeDragStop}
         onBeforeDelete={onBeforeDelete}
+        selectNodesOnDrag={false}
         proOptions={{ hideAttribution: true }}
         multiSelectionKeyCode={null}
         nodesFocusable={false}
